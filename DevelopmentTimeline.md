@@ -1,7 +1,7 @@
 # Qunjee/QuFree — Development Timeline (`feat/appobook`)
-> Full history of this branch: first commit to today. 135 commits, 2026-07-04 → 2026-08-03, ~1 month.
-> Three contributors on this branch: **Silverado313** (101 commits — Aneel, CTO/main dev),
-> **webify-cx** (32 commits), **Tech Peer** (2 commits). Grouped into phases below by what actually
+> Full history of this branch: first commit to today. 239 commits, 2026-07-04 → 2026-09-16, ~2.5 months.
+> Three contributors on this branch: **Silverado313** (201 commits — Aneel, CTO/main dev),
+> **webify-cx** (34 commits), **Tech Peer** (4 commits). Grouped into phases below by what actually
 > shipped, not by calendar week — some phases run a single day, some run several.
 
 ---
@@ -19,6 +19,13 @@
 | [6](#phase-6--legal-compliance--sehatkamla-2026-07-21--07-24) | Jul 21–24 | Legal pages, SehatKamla module, admin growth infra |
 | [7](#phase-7--ecosystem-hub--reliability-2026-07-26--07-30) | Jul 26–30 | Ecosystem hub expansion, kill-switch, Sentry, per-room-type hotels |
 | [8](#phase-8--play-store-launch-prep-2026-07-31--08-03) | Jul 31–Aug 3 | Play Store policy + TWA packaging |
+| [9](#phase-9--nayasaarasoomat-fork--hub-and-spoke-nav-2026-08-04--08-07) | Aug 4–7 | Nayasaa/Rasoomat verticals, hub-and-spoke nav |
+| [10](#phase-10--fcm-stabilization--perf-polish-2026-08-11--08-20) | Aug 11–20 | FCM push root-cause fix, perf + Sentry disclosure |
+| [11](#phase-11--1st-play-store-rejection--redo-prep-2026-08-25--08-31) | Aug 25–31 | 1st production-access rejection, HomePageV2 revamp |
+| [12](#phase-12--tester-engagement-verification--icon-completion-2026-09-01--09-03) | Sep 1–3 | Session-log audit tooling, icon/legal-text fixes |
+| [13](#phase-13--home-revamp-v2--ops-tooling--docs-sprint-2026-09-04--09-09) | Sep 4–9 | Category revamp, Ad Management, security drill |
+| [14](#phase-14--operations-console--2nd-play-store-application-2026-09-10--09-11) | Sep 10–11 | Operations console, 2nd production-access application |
+| [15](#phase-15--docs-sprint--play-store-approval-2026-09-14--09-16) | Sep 14–16 | Docs revamp, salon Ladies/Gents split, **production access approved** |
 
 ---
 
@@ -171,13 +178,110 @@
   category actually being browsed instead of defaulting to Hotels.
 - Docs: why TWA over native for this project, with a full head-to-head comparison.
 
+## Phase 9 — Nayasaa/Rasoomat fork + hub-and-spoke nav (2026-08-04 → 08-07)
+*webify-cx, Silverado313*
+
+- Added Play App Signing key fingerprint to `assetlinks.json`; gated FCM permission prompt behind an
+  explicit user tap instead of firing on load.
+- **Nayasaa** (bridal/groom/formal/semi-formal attire rental) module shipped as a room-pool-engine fork.
+- **Rasoomat** (photography/videography booking) module shipped; Rasoomat card added to ecosystem hub.
+- Corrected SehatKamla's scope in Terms/Privacy (it's a real in-app module, not an external qunjee.com
+  product as the doc previously implied).
+- **Hub-and-spoke navbar**: simplified every sub-brand's nav down to a single "Home" link instead of a
+  flat list of every sibling vertical.
+- SuperAdmin reservations visibility + detail-modal UI for Appointments/Orders/Reservations; fixed
+  reservation-email business type and missing receipt fields.
+- Docs: project map added; README refreshed for current verticals/roles/hosting state; closed-testing
+  rollout progress logged on the roadmap.
+
+## Phase 10 — FCM stabilization + perf polish (2026-08-11 → 08-20)
+*Silverado313*
+
+- **Root-caused and fixed a weeks-long total FCM push failure** — a typo'd VAPID key in `.env.local`;
+  added registered-device visibility to SuperAdmin Push Campaigns.
+- Re-encoded banner images as true WebP; switched fixed-name images to StaleWhileRevalidate caching.
+- Added per-user notification history (My Notifications page) and an in-app ecosystem guide.
+- Fixed stale-chunk-after-deploy reload loop; closed SuperAdmin dashboard status/chart gaps; gated new
+  business registrations behind SuperAdmin approval; fixed service-card layout.
+- Disclosed Sentry crash/diagnostic data collection in the privacy policy; LCP/perf tuning pass
+  (lazy-loading, oversized banners, cache/preload).
+
+## Phase 11 — 1st Play Store rejection + redo prep (2026-08-25 → 08-31)
+*Silverado313, Tech Peer*
+
+- Persisted auth storage across sessions; added a risk-mitigation checklist for a proposed API bridge.
+- Applied for Google Play production access (Aug 24) — **rejected Aug 28**: "testers not engaged" /
+  no evidence of feedback-driven updates. Started a mandatory 14-day closed-testing redo the same day.
+- **HomePage revamp**: qunjee.com-style category grid, standalone restaurant booking, SehatKamla brand
+  retired to **HealthCare** throughout the app.
+- Unified Navbar/auth/console branding to a single Qunjee logo everywhere; consolidated navigation to
+  one hub, retiring duplicate/empty browse paths; sharpened blurry category-action icons.
+- Docs: Play Store production-application support notes, framing the redo cycle's real fixes for
+  reapplication.
+
+## Phase 12 — Tester-engagement verification + icon completion (2026-09-01 → 09-03)
+*Silverado313*
+
+- Built a **tester-engagement audit tool**: live session-duration logging cross-referenced against the
+  closed-testing tester list — directly answering the Aug 28 rejection's "not engaged" finding with
+  real, exportable evidence.
+- Wired the remaining home-screen category icons (8 tiles) — no more blank placeholders.
+- Fixed Terms/Privacy to cover Nayasaa/Rasoomat and prepaid orders; corrected a stale two-logo
+  reference in the in-app documentation.
+- Fixed category-action tiles' inconsistent sizing (flex → grid); regenerated a broken push-notification
+  badge icon; added a Profile-page toggle to enable/disable push notifications.
+- Verified the Aug 31 release was approved and live; corrected an internal overstatement of tester
+  engagement before it could be reused in the reapplication.
+
+## Phase 13 — Home revamp v2 + Ops tooling + docs sprint (2026-09-04 → 09-09)
+*Silverado313, Tech Peer*
+
+- Docs: notes on a possible native-app conversion path.
+- **Category revamp**: Restaurants tile switched to Eats ordering, real browser-history back buttons,
+  bottom-nav "Book" relabeled to "Search", A-Z business-name filter, Catering + Study Abroad activated,
+  Medicine Consultancy added.
+- Real-time admin Appointments page; fixed stale SEO metadata/sitemap and Working Hours day ordering.
+- Distinguished subscription-lapsed booking rejections from generic errors; added ad-banner slots to
+  Home and the Restaurants category page.
+- Shipped a simplified **SuperAdmin Ad Management module** (upload, validate, delete) and an
+  appointments data-export tool (CSV/XLSX/JSON, interactive table).
+- Ran a live security drill and logged the findings, then went back and corrected overclaims in that
+  report before treating it as final.
+- Docs: a data backup plan, a UI field-validation plan, a tentative hosting cost estimate.
+
+## Phase 14 — Operations console + 2nd Play Store application (2026-09-10 → 09-11)
+*Silverado313*
+
+- Shipped the **Operations console** — a 4th internal console with tiered role-based access, full
+  data-export and search tooling.
+- Completed the 14-day closed-testing redo cycle; **submitted a 2nd production-access application**
+  (Sep 11) leading with Play-Store-tab tester feedback instead of the informal channel flagged in the
+  first rejection.
+- Added a dine-in pre-order page with platform-neutral booking language; locked admins out of
+  self-editing their own escalation records; restored the home-page chat widget; started tracking who
+  cancelled a booking/order.
+
+## Phase 15 — Docs sprint + Play Store approval (2026-09-14 → 09-16)
+*Silverado313*
+
+- Docs revamp: README + core docs rewritten category-first; fixed stale route/domain references
+  wherever found.
+- Added a "How to use Qunjee" video popup on the homepage; sharpened business-card logo rendering.
+- Surfaced cancellation attribution and Updated-At timestamps in SuperAdmin tables; split salon
+  browse/signup by Ladies/Gents; added Change Password to the admin profile.
+- **2026-09-16 — Google Play production access approved.** Promoted the already-tested closed-testing
+  build straight to the Production track (no new AAB), set countries to Pakistan-only, and submitted
+  the release for Google's per-release review.
+
 ---
 
 ## Reading this timeline
 
-The shape of the last month: **rebrand three times** (MediBook→AppoBook→QuFree→Qunjee ecosystem),
-**four verticals shipped** (booking/appointments, QunjeeEats food ordering, hotel rooms, SehatKamla),
-one full support/CSR system, one SuperAdmin console with growing ops tooling, and — as of this week —
-the first steps toward an actual Play Store listing via TWA. Two people carried most of the load
-(Silverado313 and webify-cx working largely in parallel, occasionally on the same features — see the
-2026-07-29 merge commit reconciling parallel ecosystem-hub work).
+The shape of the full 2.5 months: **rebrand three times** (MediBook→AppoBook→QuFree→Qunjee ecosystem),
+**six verticals shipped** (booking/appointments, QunjeeEats food ordering, hotel rooms, HealthCare,
+Nayasaa attire rental, Rasoomat photography/videography), one full support/CSR system, four internal
+consoles, a from-scratch tester-engagement audit tool built specifically to answer a real Play Store
+rejection — and, as of today, **Google Play production access approved** with the production release
+already submitted for review. Two people carried most of the early load (Silverado313 and webify-cx
+working largely in parallel, occasionally on the same features — see the 2026-07-29 merge commit
+reconciling parallel ecosystem-hub work); from mid-August onward it was almost entirely a solo sprint.
