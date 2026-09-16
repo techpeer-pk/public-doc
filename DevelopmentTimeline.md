@@ -84,8 +84,8 @@
 - **Real-time support chat** via Realtime Database + CSR live queue.
 - Password visibility toggle + forgot-password on all logins; read-only staff badges in Users.
 - Docs: complete step-by-step user guide (every role), subscription + commission-settlement billing
-  plans, Aroma Kitchen case study, SaaS readiness audit, master console-tasks reference, production
-  data-cleanup plan, security & compliance audit.
+  plans, a real restaurant onboarding case study, SaaS readiness audit, master console-tasks reference,
+  production data-cleanup plan, security & compliance audit.
 
 ## Phase 4 — Self-pickup, AFO prepay, Qunjee rebrand rollout (2026-07-15 → 07-17)
 *Silverado313*
@@ -95,7 +95,7 @@
 - Invoice printing/actions, configurable fee, CSR route rename.
 - Stopped the service worker from caching Firebase's own API traffic.
 - **Qunjee rebrand rollout** + ecosystem hub polish; fixed Lighthouse-flagged CLS/a11y/cache-header gaps.
-- Added Q-Shua and Q-Tamerati cards to the ecosystem hub; footer credit now points at the hub.
+- Added two more ecosystem cards linking to sibling Qunjee products; footer credit now points at the hub.
 - Page share menu, self-serve FAQ chat, SuperAdmin FAQ management + FAQ content drafts.
 
 ## Phase 5 — Vertical expansion: Hotels & Restaurants (2026-07-19 → 07-20)
@@ -106,12 +106,12 @@
   switches.
 - Added **Hotel and Padel Club** business types, dropped the "All" filter pill; pluralized browse
   filter labels, relabeled Clinic pill as Hospitals.
-- Added Taa-ilm ecosystem card + email-domain typo-guard.
+- Added another ecosystem card + email-domain typo-guard.
 - **FCM background push** — status updates, welcome push, and broadcasts.
 - **Hotel room-booking module** (date-range reservations, dashboard, screenshot proof).
 - Manual push-notification guide added to docs.
 - GA tag added; fixed room-booking capacity bug; expanded push-notification docs.
-- Hardened booking-capacity rules, flagged price mismatches, added visitor counter.
+- Hardened booking-capacity rules, added visitor counter.
 
 ## Phase 6 — Legal, compliance & SehatKamla (2026-07-21 → 07-24)
 *Silverado313*
@@ -127,7 +127,7 @@
   SehatKamla to 3rd position in the `/index` ecosystem grid.
 - Allowed `sehatkamla` business type in Firestore rules; added bottom-nav + badge styling.
 - Added "Latest Updates" scrolling ticker to the home page.
-- Docs: DCE v2.0 cost evaluation covering post-v1 development.
+- Docs: cost evaluation covering post-v1 development.
 - Hotel booking polish + SuperAdmin console improvements; CSV export for Users/Businesses tables;
   SehatKamla brand logo added to navbar/page header.
 - Unified grid-card styling across home, browse, and QunjeeEats; added Date of Join to business admin
@@ -137,15 +137,17 @@
 ## Phase 7 — Ecosystem hub & reliability (2026-07-26 → 07-30)
 *webify-cx, Silverado313*
 
-- Added Dhaal ecosystem card; replaced Shopping card with **Qunjee Mall** on the ecosystem hub.
+- Added another ecosystem card; replaced the Shopping card with a new marketplace card on the
+  ecosystem hub.
 - Docs: PWA → Play Store/App Store roadmap (`PWA2TWA_ROADMAP.md`) — the decision point for TWA over
   native.
-- iOS install step-by-step guide; added Dhaal + Qunjee Mall cards; merge-reconciled with upstream
-  Dhaal/Qunjee Mall commits.
+- iOS install step-by-step guide; added more ecosystem cards; merge-reconciled parallel work from a
+  second contributor.
 - Fixed Chrome/Firefox/Edge-on-iOS detection to point users at Safari for install; extracted
   `detectIOSBrowser()`.
-- Temporarily hid the Qunjee Mall card; persistent "Install App" link on login pages, fixed a missed
-  install-prompt bug; fixed the install banner reappearing every few seconds after dismiss.
+- Temporarily hid one ecosystem card pending readiness; persistent "Install App" link on login pages,
+  fixed a missed install-prompt bug; fixed the install banner reappearing every few seconds after
+  dismiss.
 - **Emergency shutdown kill-switch** (`config/appStatus`).
 - Added Sentry error tracking (no-op until `VITE_SENTRY_DSN` is set).
 - Fixed the live URL for QuFree in the README.
@@ -161,13 +163,13 @@
 
 - Docs: Play Store policy protocols reference (reviewed against the actual codebase, not a generic
   checklist).
-- Temporarily hid the Qunjee Kaam card from the ecosystem hub.
+- Temporarily hid another ecosystem card pending readiness.
 - Added **Nayasaa** (bridal & groom wear rental) card to the ecosystem hub.
 - Added Digital Asset Links (`assetlinks.json`) for the Play Store TWA.
 - Docs: TWA build/update pre & post instructions runbook (`TWA_PrePostInstructions.md`).
 - Fixed the business-type filter resetting on browse navigation — back button/link now returns to the
   category actually being browsed instead of defaulting to Hotels.
-- Docs: `BestPOV.md` — why TWA over native for this project, with a full head-to-head comparison.
+- Docs: why TWA over native for this project, with a full head-to-head comparison.
 
 ---
 
@@ -178,4 +180,4 @@ The shape of the last month: **rebrand three times** (MediBook→AppoBook→QuFr
 one full support/CSR system, one SuperAdmin console with growing ops tooling, and — as of this week —
 the first steps toward an actual Play Store listing via TWA. Two people carried most of the load
 (Silverado313 and webify-cx working largely in parallel, occasionally on the same features — see the
-2026-07-29 merge commit reconciling upstream Dhaal/Qunjee Mall work).
+2026-07-29 merge commit reconciling parallel ecosystem-hub work).
